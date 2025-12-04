@@ -46,4 +46,12 @@ function puzzle2() {
   if (input.length == 0) {
     return 0;
   }
+  let banks = input.split(" ");
+  let count = 0;
+  banks.forEach((bank) => {
+    let batteries = bank.split("").map((battery) => parseInt(battery));
+    count += max1 * 10 + max2;
+  });
+  console.log("puzzle2 answer: " + count);
+  return count;
 }
