@@ -1,0 +1,58 @@
+body {
+  font-family: monospace;
+  padding: 20px;
+}
+.grid {
+  display: grid;
+}
+.flex {
+  display: flex;
+}
+#mainContainer {
+  gap: 10px;
+  align-items: start;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+.inputBox {
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+}
+input {
+  font-family: monospace;
+  padding: 5px;
+  border-radius: 5px;
+  border: 3px solid green;
+}
+input:focus {
+  outline: none;
+}
+.inputBox > input:nth-of-type(2) {
+  border: 3px solid salmon;
+}
+
+button {
+  font-family: monospace;
+  color: pink;
+  font-weight: bold;
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+  background-color: green;
+}
+button:hover {
+  background-color: rgb(0, 163, 0);
+  box-shadow: 0px 0px 10px pink;
+}
+#mainContainer div:nth-child(2n) input {
+  border: 3px solid salmon;
+}
+#mainContainer div:nth-child(2n) button {
+  color: green;
+  background-color: pink;
+}
+#mainContainer div:nth-child(2n) button:hover {
+  background-color: rgb(254, 209, 216);
+  box-shadow: 0px 0px 10px green;
+}
