@@ -22,6 +22,8 @@ ENJOY!
 ## Day 3
 
 - map() with a function of two arguments
+- use array constructor to initialize the size
+- use array fill() function to initialize the array values
 
 ## Reflection
 
