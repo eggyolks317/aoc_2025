@@ -50,14 +50,26 @@ function puzzle2() {
   let banks = input.split(" ");
   let count = 0;
   banks.forEach((bank) => {
-    let value = new Array();
-    let v = arrayVal(value);
+    let value = new Array(12).fill(0);
     let batteries = bank.split("").map((battery) => parseInt(battery));
     batteries.forEach((b, index) => {
-      if (index < 12) {
-        value.push(b);
+      if (index < batteries.length - 12) {
+        for (let i = 0; i < 12; i++) {
+          if (value[i] < b) {
+            value[i] = b;
+            break;
+          }
+        }
+      } else {
+        for (let i = 12 - (batteries.length - index); i < 12; i++) {
+          if (value[i] < b) {
+            value[i] = b;
+            break;
+          }
+        }
       }
     });
+    count += arrayVal(value);
     console.log(arrayVal(value));
     console.log();
   });
