@@ -44,7 +44,6 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input3").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
@@ -58,18 +57,19 @@ function puzzle2() {
         for (let i = 0; i < 12; i++) {
           if (value[i] < b) {
             value[i] = b;
+            for (let j = i; j < 11; j++) {
+              value[j + 1] = 0;
+            }
             break;
           }
         }
       } else {
         for (let i = 12 - (batteries.length - index); i < 12; i++) {
           if (value[i] < b) {
-            console.log(index + " " + value[i]);
             value[i] = b;
             for (let j = i; j < 11; j++) {
               value[j + 1] = 0;
             }
-            console.log(value);
             break;
           }
         }
@@ -77,6 +77,7 @@ function puzzle2() {
     });
     count += arrayVal(value);
     console.log(arrayVal(value));
+    console.log(bank);
     console.log();
   });
   console.log("puzzle2 answer: " + count);
