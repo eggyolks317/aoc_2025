@@ -10,11 +10,18 @@ ENJOY!
 
 ## Day 1
 
-### Puzzle 1
-
 - parseInt ()
 - slice()
 - utilization of modulus
+
+## Day 2
+
+- charAt()
+- at()
+
+## Day 3
+
+- map() with a function of two arguments
 
 ## Reflection
 
