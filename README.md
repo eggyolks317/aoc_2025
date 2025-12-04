@@ -1,4 +1,4 @@
-### Advent of Code 2025
+# Advent of Code 2025
 
 This year, I have decided to use javascript and other skills I have learned from The Odin Project (TOP) to complete the challenges. Right now, my progress in TOP is 25% completed in Javascript course.
 This README file will be a place where I log the skills that I used and learned for AOC 2025
@@ -10,7 +10,7 @@ ENJOY!
 
 ## Day 1
 
-# Puzzle 1
+### Puzzle 1
 
 - parseInt ()
 - slice()
