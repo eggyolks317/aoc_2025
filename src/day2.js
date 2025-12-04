@@ -7,7 +7,7 @@ export function day2() {
     let p2Ans = puzzle2();
     answer1Box.textContent = "answer to puzzle 1: " + p1Ans;
     answer2Box.textContent = "answer to puzzle 2: " + p2Ans;
-    console.log("END CALCULATION");
+    console.log("END CALCULATION : Day 2");
   });
 }
 
