@@ -8,6 +8,7 @@ export function day3() {
     answer1Box.textContent = "answer to puzzle 1: " + p1Ans;
     answer2Box.textContent = "answer to puzzle 2: " + p2Ans;
     console.log("END CALCULATION : Day 3");
+    console.log("");
   });
 }
 
@@ -63,7 +64,12 @@ function puzzle2() {
       } else {
         for (let i = 12 - (batteries.length - index); i < 12; i++) {
           if (value[i] < b) {
+            console.log(index + " " + value[i]);
             value[i] = b;
+            for (let j = i; j < 11; j++) {
+              value[j + 1] = 0;
+            }
+            console.log(value);
             break;
           }
         }
@@ -85,4 +91,8 @@ function arrayVal(arr) {
     i /= 10;
     return sum;
   }, 0);
+}
+
+function numberOf(arr, target) {
+  return arr.filter((item) => item == 2).length;
 }
