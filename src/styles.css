@@ -9,10 +9,9 @@ body {
   display: flex;
 }
 #mainContainer {
-  gap: 10px;
+  gap: 20px 10px;
   align-items: start;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
 }
 .inputBox {
   gap: 10px;
@@ -31,6 +30,10 @@ textarea:focus {
 }
 .inputBox > textarea:nth-of-type(2) {
   border: 3px solid salmon;
+}
+label {
+  font-weight: bold;
+  font-size: large;
 }
 
 textarea::placeholder {
