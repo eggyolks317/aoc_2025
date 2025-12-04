@@ -51,7 +51,6 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input4").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
@@ -79,7 +78,6 @@ function puzzle2() {
     }
   }
   console.log("answer: " + countX(lines));
-  console.log(lines);
   return countX(lines);
 }
 
@@ -96,13 +94,11 @@ function checkAdj(arr, pos1, pos2) {
         checkp2 >= 0
       ) {
         if (arr[checkp1][checkp2] == "@") {
-          console.log(checkp1 + " " + checkp2);
           count++;
         }
       }
     }
   }
-  console.log("");
   return count - 1;
 }
 
