@@ -22,14 +22,8 @@ textarea {
   resize: none;
   font-family: monospace;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 3px solid green;
-}
-textarea:focus {
-  outline: none;
-}
-.inputBox > textarea:nth-of-type(2) {
-  border: 3px solid salmon;
 }
 label {
   font-weight: bold;
@@ -39,6 +33,11 @@ label {
 textarea::placeholder {
   font-style: italic;
 }
+textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px salmon;
+}
+
 button {
   font-family: monospace;
   color: pink;
@@ -50,10 +49,14 @@ button {
 }
 button:hover {
   background-color: rgb(0, 163, 0);
-  box-shadow: 0px 0px 10px pink;
+  box-shadow: 0px 0px 10px salmon;
 }
 #mainContainer div:nth-child(2n) textarea {
   border: 3px solid salmon;
+}
+#mainContainer div:nth-child(2n) textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px green;
 }
 #mainContainer div:nth-child(2n) button {
   color: green;
