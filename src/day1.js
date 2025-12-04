@@ -51,7 +51,6 @@ function puzzle2() {
   let directions = input.split(" ");
   let dial = 50;
   let count = 0;
-  let from0 = false;
   directions.forEach((d) => {
     let value = parseInt(d.slice(1));
     if (d.charAt(0) == "R") {
@@ -72,9 +71,6 @@ function puzzle2() {
           count++;
         }
       }
-    }
-    if (dial == 0) {
-      from0 = true;
     }
 
     console.log("dial is: " + dial);
