@@ -43,15 +43,34 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input3").value;
+  input = testCase;
   if (input.length == 0) {
     return 0;
   }
   let banks = input.split(" ");
   let count = 0;
   banks.forEach((bank) => {
+    let value = new Array();
+    let v = arrayVal(value);
     let batteries = bank.split("").map((battery) => parseInt(battery));
-    count += max1 * 10 + max2;
+    batteries.forEach((b, index) => {
+      if (index < 12) {
+        value.push(b);
+      }
+    });
+    console.log(arrayVal(value));
+    console.log();
   });
   console.log("puzzle2 answer: " + count);
   return count;
+}
+
+//transforms size 12 int array into an int
+function arrayVal(arr) {
+  let i = 100000000000;
+  return arr.reduce((sum, current) => {
+    sum += i * current;
+    i /= 10;
+    return sum;
+  }, 0);
 }
