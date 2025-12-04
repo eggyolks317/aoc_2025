@@ -51,9 +51,36 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input4").value;
+  input = testCase;
   if (input.length == 0) {
     return 0;
   }
+  let lessThan4 = 0;
+  let lines = input.split("\n");
+  lines = lines.map((line) => line.split(""));
+  while (true) {
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+      for (let j = 0; j < line.length; j++) {
+        let count = 0;
+        if (line[j] == "@") {
+          count = checkAdj(lines, i, j);
+          if (count < 4) {
+            lessThan4++;
+            line[j] = "x";
+          }
+        }
+      }
+    }
+    if (lessThan4 == 0) {
+      break;
+    } else {
+      lessThan4 = 0;
+    }
+  }
+  console.log("answer: " + countX(lines));
+  console.log(lines);
+  return countX(lines);
 }
 
 function checkAdj(arr, pos1, pos2) {
