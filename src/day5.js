@@ -26,9 +26,29 @@ let testCase = `3-5
 
 function puzzle1() {
   let input = document.getElementById("input5").value;
+  input = testCase;
   if (input.length == 0) {
     return 0;
   }
+  //split input into ranges and ids array
+  let count = 0;
+  let ranges = input.split("\n\n")[0].split("\n");
+  let ids = input.split("\n\n")[1].split("\n");
+  ids.forEach((id) => {
+    let innerCount = 0;
+    ranges.forEach((range) => {
+      let splitRange = range.split("-");
+      if (
+        between(parseInt(id), parseInt(splitRange[0]), parseInt(splitRange[1]))
+      )
+        innerCount++;
+    });
+    if (innerCount > 0) {
+      count++;
+    }
+  });
+  console.log(count);
+  return count;
 }
 
 function puzzle2() {
@@ -36,4 +56,8 @@ function puzzle2() {
   if (input.length == 0) {
     return 0;
   }
+}
+
+function between(target, x, y) {
+  return target >= x && target <= y;
 }
