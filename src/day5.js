@@ -13,9 +13,11 @@ export function day5() {
 }
 
 let testCase = `3-5
+3-5
 10-14
 16-20
 12-18
+9-21
 
 1
 5
@@ -23,8 +25,6 @@ let testCase = `3-5
 11
 17
 32`;
-
-//real input: https://adventofcode.com/2025/day/5/input
 
 function puzzle1() {
   let input = document.getElementById("input5").value;
@@ -59,8 +59,6 @@ function puzzle2() {
     return 0;
   }
   let count = 0;
-  let idx = [0, 1];
-  let breakPoints = new Array();
   let ranges = input.split("\n\n")[0].split("\n");
   //sort the ranges
   ranges = ranges.sort(function (a, b) {
@@ -68,15 +66,30 @@ function puzzle2() {
   });
   console.log(ranges);
   //merge the ranges
-  for (let i = 0; i < ranges.length - 1; i++) {
-    let splitRangeI = ranges[i].split("-");
-    let minI = parseInt(splitRangeI[0]);
-    let maxI = parseInt(splitRangeI[1]);
-    let splitRangeNext = ranges[i + 1].split("-");
-    let minNext = parseInt(splitRangeNext[0]);
-    let maxNext = parseInt(splitRangeNext[1]);
-    if (maxI > minNext && maxI < maxNext) {
-      ranges[i + 1] = parseInt(maxI) + 1 + "-" + maxNext;
+  let changed = false;
+  while (true) {
+    for (let i = 0; i < ranges.length - 1; i++) {
+      let splitRangeI = ranges[i].split("-");
+      let minI = parseInt(splitRangeI[0]);
+      let maxI = parseInt(splitRangeI[1]);
+      let splitRangeNext = ranges[i + 1].split("-");
+      let minNext = parseInt(splitRangeNext[0]);
+      let maxNext = parseInt(splitRangeNext[1]);
+      if (maxI > minNext && maxI < maxNext) {
+        ranges[i + 1] = parseInt(maxI) + 1 + "-" + maxNext;
+        changed = true;
+      } else if (maxI > minNext && maxI > maxNext) {
+        ranges.splice(i + 1, 1);
+        changed = true;
+      } else if (maxI == maxNext && minI == minNext) {
+        ranges.splice(i + 1, 1);
+        changed = true;
+      }
+    }
+    if (!changed) {
+      break;
+    } else {
+      changed = false;
     }
   }
 
