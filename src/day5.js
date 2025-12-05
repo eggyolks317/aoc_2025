@@ -24,6 +24,8 @@ let testCase = `3-5
 17
 32`;
 
+//real input: https://adventofcode.com/2025/day/5/input
+
 function puzzle1() {
   let input = document.getElementById("input5").value;
   if (input.length == 0) {
@@ -57,19 +59,35 @@ function puzzle2() {
     return 0;
   }
   let count = 0;
+  let idx = [0, 1];
+  let breakPoints = new Array();
   let ranges = input.split("\n\n")[0].split("\n");
-  let freshId = new Array();
+  //sort the ranges
+  ranges = ranges.sort(function (a, b) {
+    return a.split("-")[0] - b.split("-")[0];
+  });
+  console.log(ranges);
+  //merge the ranges
+  for (let i = 0; i < ranges.length - 1; i++) {
+    let splitRangeI = ranges[i].split("-");
+    let minI = parseInt(splitRangeI[0]);
+    let maxI = parseInt(splitRangeI[1]);
+    let splitRangeNext = ranges[i + 1].split("-");
+    let minNext = parseInt(splitRangeNext[0]);
+    let maxNext = parseInt(splitRangeNext[1]);
+    if (maxI > minNext && maxI < maxNext) {
+      ranges[i + 1] = parseInt(maxI) + 1 + "-" + maxNext;
+    }
+  }
+
   ranges.forEach((range) => {
     let splitRange = range.split("-");
     let min = parseInt(splitRange[0]);
     let max = parseInt(splitRange[1]);
-    for (let i = min; i <= max; i++) {
-      freshId.push(i);
-    }
-    freshId = freshId.filter((id, index) => freshId.indexOf(id) == index);
+    count += max - min + 1;
   });
-  console.log(freshId.length);
-  return freshId.length;
+  console.log(ranges);
+  return count;
 }
 
 function between(target, x, y) {
