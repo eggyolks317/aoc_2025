@@ -26,7 +26,6 @@ let testCase = `3-5
 
 function puzzle1() {
   let input = document.getElementById("input5").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
