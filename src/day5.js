@@ -52,9 +52,24 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input5").value;
+  input = testCase;
   if (input.length == 0) {
     return 0;
   }
+  let count = 0;
+  let ranges = input.split("\n\n")[0].split("\n");
+  let freshId = new Array();
+  ranges.forEach((range) => {
+    let splitRange = range.split("-");
+    let min = parseInt(splitRange[0]);
+    let max = parseInt(splitRange[1]);
+    for (let i = min; i <= max; i++) {
+      freshId.push(i);
+    }
+    freshId = freshId.filter((id, index) => freshId.indexOf(id) == index);
+  });
+  console.log(freshId.length);
+  return freshId.length;
 }
 
 function between(target, x, y) {
