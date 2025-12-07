@@ -54,16 +54,13 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input5").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
   let count = 0;
   let ranges = input.split("\n\n")[0].split("\n");
   //sort the ranges
-  ranges = ranges.sort(function (a, b) {
-    return a.split("-")[0] - b.split("-")[0];
-  });
+  ranges = sortArr(ranges);
   console.log(ranges);
   //merge the ranges
   let changed = false;
@@ -75,14 +72,25 @@ function puzzle2() {
       let splitRangeNext = ranges[i + 1].split("-");
       let minNext = parseInt(splitRangeNext[0]);
       let maxNext = parseInt(splitRangeNext[1]);
-      if (maxI > minNext && maxI < maxNext) {
-        ranges[i + 1] = parseInt(maxI) + 1 + "-" + maxNext;
-        changed = true;
-      } else if (maxI > minNext && maxI > maxNext) {
+      //case if the next range is within the current range
+      if (minI <= minNext && maxI >= maxNext) {
         ranges.splice(i + 1, 1);
         changed = true;
-      } else if (maxI == maxNext && minI == minNext) {
+      }
+      //case if the next min is within the current range but not the max
+      else if (minNext < maxI && maxNext > maxI) {
+        ranges[i] = minI + "-" + maxNext;
         ranges.splice(i + 1, 1);
+        changed = true;
+      }
+      //case if current range matches next range
+      else if (minI == minNext && maxI == maxNext) {
+        ranges.splice(i + 1, 1);
+        changed = true;
+      }
+      //case if the current max is the same as the next min (i.e 11-12 12-13)
+      else if (maxI == minNext) {
+        ranges[i + 1] = minNext + 1 + "-" + maxNext;
         changed = true;
       }
     }
@@ -90,7 +98,9 @@ function puzzle2() {
       break;
     } else {
       changed = false;
+      ranges = sortArr(ranges);
     }
+    console.log(ranges);
   }
 
   ranges.forEach((range) => {
@@ -105,4 +115,13 @@ function puzzle2() {
 
 function between(target, x, y) {
   return target >= x && target <= y;
+}
+
+function sortArr(arr) {
+  return arr.sort(function (a, b) {
+    if (a.split("-")[0] == b.split("-")[0]) {
+      return a.split("-")[1] - b.split("-")[1];
+    }
+    return a.split("-")[0] - b.split("-")[0];
+  });
 }
