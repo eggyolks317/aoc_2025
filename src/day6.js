@@ -19,7 +19,6 @@ let testCase = `123 328  51 64
 
 function puzzle1() {
   let input = document.getElementById("input6").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
