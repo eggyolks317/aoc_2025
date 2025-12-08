@@ -38,7 +38,6 @@ function puzzle1() {
   let operations = lines[lines.length - 1];
   let answer = new Array(operations.length);
   answer.fill(0);
-  console.log(operations);
   for (let i = 0; i < lines.length - 1; i++) {
     for (let j = 0; j < lines[i].length; j++) {
       if (answer[j] == 0) {
@@ -56,6 +55,37 @@ function puzzle2() {
   if (input.length == 0) {
     return 0;
   }
+  let lines = input.split("\n");
+  lines = lines.map((line) => {
+    line = line.split("");
+    return line;
+  });
+
+  console.log(lines);
+
+  let operations = lines[lines.length - 1];
+  lines.splice(lines.length - 1, 1);
+  let answer = new Array(operations.filter((item) => item != " ").length);
+  let count = -1;
+  let sign = "";
+  answer.fill(0);
+  for (let j = 0; j < operations.length; j++) {
+    let currentValue = "";
+    if (operations[j] != " ") {
+      sign = operations[j];
+      count++;
+      if (sign == "*") {
+        answer[count] = 1;
+      }
+    }
+    for (let i = 0; i < lines.length; i++) {
+      currentValue += lines[i][j];
+    }
+    if (parseInt(currentValue) > 0) {
+      answer[count] = operate(answer[count], parseInt(currentValue), sign);
+    }
+  }
+  return answer.reduce((sum, current) => sum + current);
 }
 function removeEmpty(arr) {
   return arr.filter((item) => item != "");
@@ -63,11 +93,7 @@ function removeEmpty(arr) {
 function operate(x, y, action) {
   if (action == "+") {
     return x + y;
-  } else if (action == "-") {
-    return x - y;
   } else if (action == "*") {
     return x * y;
-  } else if (action == "/") {
-    return x / y;
   }
 }
