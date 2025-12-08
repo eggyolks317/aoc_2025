@@ -61,8 +61,6 @@ function puzzle2() {
     return line;
   });
 
-  console.log(lines);
-
   let operations = lines[lines.length - 1];
   lines.splice(lines.length - 1, 1);
   let answer = new Array(operations.filter((item) => item != " ").length);
