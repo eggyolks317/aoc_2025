@@ -1,5 +1,4 @@
 export function day7() {
-  puzzle2();
   let submitBtn = document.getElementById("day7Submit");
   let answer1Box = document.getElementById("answer1Day7");
   let answer2Box = document.getElementById("answer2Day7");
@@ -63,7 +62,6 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input7").value;
-  input = testCase;
   if (input.length == 0) {
     return 0;
   }
