@@ -35,14 +35,107 @@ let testCase = `162,817,812
 
 function puzzle1() {
   let input = document.getElementById("input8").value;
+  input = testCase;
   if (input.length == 0) {
-    return 0;
+    return "no input";
   }
+  //set-up input
+  let locations = input.split("\n");
+  locations = locations.map((coordinates) => {
+    coordinates = coordinates.split(",");
+    coordinates = coordinates.map((coordinate) => parseInt(coordinate));
+    return coordinates;
+  });
+
+  let connections = Array(locations.length);
+  connections.fill(0);
+  let numOfConnections = 1;
+
+  // save all of the distances
+  let distances = [];
+  let count = 0;
+  for (let i = 0; i < locations.length; i++) {
+    for (let j = i + 1; j < locations.length; j++) {
+      let object = [];
+      object[0] = distance(
+        locations[i][0],
+        locations[j][0],
+        locations[i][1],
+        locations[j][1],
+        locations[i][2],
+        locations[j][2]
+      );
+      object[1] = i;
+      object[2] = j;
+      distances[count] = object;
+      count++;
+    }
+  }
+  console.log(distances);
+
+  //sort the distances
+
+  distances.sort((a, b) => a[0] - b[0]);
+  console.log(distances);
+
+  for (let i = 0; i < 10; i++) {
+    let idx1 = distances[i][1];
+    let idx2 = distances[i][2];
+    //if both are 0
+    if (connections[idx1] == 0 && connections[idx2] == 0) {
+      connections[idx1] = numOfConnections;
+      connections[idx2] = numOfConnections;
+      numOfConnections++;
+    } else if (connections[idx1] == connections[idx2]) {
+      continue;
+    } else if (connections[idx1] != 0) {
+      if (connections[idx2] == 0) {
+        connections[idx2] = connections[idx1];
+      } else {
+        connections = connections.map((current) => {
+          if (current == connections[idx2]) {
+            current = connections[idx1];
+          }
+          return current;
+        });
+      }
+    } else if (connections[idx2] != 0) {
+      if (connections[idx1] == 0) {
+        connections[idx1] = connections[idx2];
+      } else {
+        connections = connections.map((current) => {
+          if (current == connections[idx1]) {
+            current = connections[idx2];
+          }
+          return current;
+        });
+      }
+    }
+  }
+  let answer = Array(numOfConnections);
+  for (let i = 1; i <= numOfConnections; i++) {
+    answer[i - 1] = connections.reduce((sum, current) => {
+      if (current == i) {
+        sum++;
+      }
+      return sum;
+    }, 0);
+  }
+  console.log(answer);
+  answer = answer.sort(function (a, b) {
+    return b - a;
+  });
+  console.log(answer);
+  return answer[0] * answer[1] * answer[2];
 }
 
 function puzzle2() {
   let input = document.getElementById("input8").value;
   if (input.length == 0) {
-    return 0;
+    return "no input";
   }
+}
+
+function distance(x1, x2, y1, y2, z1, z2) {
+  return Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2);
 }
