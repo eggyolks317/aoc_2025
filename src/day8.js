@@ -35,7 +35,6 @@ let testCase = `162,817,812
 
 function puzzle1() {
   let input = document.getElementById("input8").value;
-  input = testCase;
   if (input.length == 0) {
     return "no input";
   }
@@ -46,10 +45,6 @@ function puzzle1() {
     coordinates = coordinates.map((coordinate) => parseInt(coordinate));
     return coordinates;
   });
-
-  let connections = Array(locations.length);
-  connections.fill(0);
-  let numOfConnections = 1;
 
   // save all of the distances
   let distances = [];
@@ -74,11 +69,15 @@ function puzzle1() {
   console.log(distances);
 
   //sort the distances
-
   distances.sort((a, b) => a[0] - b[0]);
   console.log(distances);
 
-  for (let i = 0; i < 10; i++) {
+  //start connecting
+  let connections = Array(locations.length);
+  connections.fill(0);
+  let numOfConnections = 1;
+
+  for (let i = 0; i < 1000; i++) {
     let idx1 = distances[i][1];
     let idx2 = distances[i][2];
     //if both are 0
@@ -112,6 +111,8 @@ function puzzle1() {
       }
     }
   }
+
+  //summarize the connections array
   let answer = Array(numOfConnections);
   for (let i = 1; i <= numOfConnections; i++) {
     answer[i - 1] = connections.reduce((sum, current) => {
