@@ -66,12 +66,9 @@ function puzzle1() {
       count++;
     }
   }
-  console.log(distances);
 
   //sort the distances
   distances.sort((a, b) => a[0] - b[0]);
-  console.log(distances);
-
   //start connecting
   let connections = Array(locations.length);
   connections.fill(0);
@@ -122,21 +119,111 @@ function puzzle1() {
       return sum;
     }, 0);
   }
-  console.log(answer);
   answer = answer.sort(function (a, b) {
     return b - a;
   });
-  console.log(answer);
   return answer[0] * answer[1] * answer[2];
 }
 
 function puzzle2() {
   let input = document.getElementById("input8").value;
+  input = testCase;
   if (input.length == 0) {
     return "no input";
   }
+  //set-up input
+  let locations = input.split("\n");
+  locations = locations.map((coordinates) => {
+    coordinates = coordinates.split(",");
+    coordinates = coordinates.map((coordinate) => parseInt(coordinate));
+    return coordinates;
+  });
+
+  // save all of the distances
+  let distances = [];
+  let count = 0;
+  for (let i = 0; i < locations.length; i++) {
+    for (let j = i + 1; j < locations.length; j++) {
+      let object = [];
+      object[0] = distance(
+        locations[i][0],
+        locations[j][0],
+        locations[i][1],
+        locations[j][1],
+        locations[i][2],
+        locations[j][2]
+      );
+      object[1] = i;
+      object[2] = j;
+      distances[count] = object;
+      count++;
+    }
+  }
+
+  //sort the distances
+  distances.sort((a, b) => a[0] - b[0]);
+  //start connecting
+  let connections = Array(locations.length);
+  connections.fill(0);
+  let numOfConnections = 1;
+  let lastTwo = [];
+
+  while (!checkSame(connections)) {
+    let idx1 = distances[0][1];
+    let idx2 = distances[0][2];
+    lastTwo[0] = idx1;
+    lastTwo[1] = idx2;
+    distances.splice(0, 1);
+    //if both are 0
+    if (connections[idx1] == 0 && connections[idx2] == 0) {
+      connections[idx1] = numOfConnections;
+      connections[idx2] = numOfConnections;
+      numOfConnections++;
+    } else if (connections[idx1] == connections[idx2]) {
+      continue;
+    } else if (connections[idx1] != 0) {
+      if (connections[idx2] == 0) {
+        connections[idx2] = connections[idx1];
+      } else {
+        connections = connections.map((current) => {
+          if (current == connections[idx2]) {
+            current = connections[idx1];
+          }
+          return current;
+        });
+      }
+    } else if (connections[idx2] != 0) {
+      if (connections[idx1] == 0) {
+        connections[idx1] = connections[idx2];
+      } else {
+        connections = connections.map((current) => {
+          if (current == connections[idx1]) {
+            current = connections[idx2];
+          }
+          return current;
+        });
+      }
+    }
+  }
+
+  return locations[lastTwo[0]][0] * locations[lastTwo[1]][0];
 }
 
 function distance(x1, x2, y1, y2, z1, z2) {
   return Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2);
+}
+
+function checkSame(array) {
+  let num = array[0];
+  if (num == 0) {
+    return false;
+  }
+  let same = true;
+  array.forEach((e) => {
+    if (e != num) {
+      same = false;
+      return e;
+    }
+  });
+  return same;
 }
