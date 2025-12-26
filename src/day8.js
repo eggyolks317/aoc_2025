@@ -127,7 +127,6 @@ function puzzle1() {
 
 function puzzle2() {
   let input = document.getElementById("input8").value;
-  input = testCase;
   if (input.length == 0) {
     return "no input";
   }
